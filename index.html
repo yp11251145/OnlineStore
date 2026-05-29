@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGear | Minimalist Shop</title>
+    <style>
+        /* CSS - The "Look" of your store */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background: #fff;
+            padding: 1rem 10%;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+        }
+
+        /* Product Grid */
+        .product-section {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1.5rem;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.2rem;
+        }
+
+        /* Order Form */
+        .order-section {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+
+        .order-section h2 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>EcoGear Shop</h1>
+        <p>Sustainable essentials for everyday life.</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="product-section">
+            <div class="product-card">
+                <h3>Bamboo Toothbrush</h3>
+                <p>Biodegradable handle with soft charcoal bristles.</p>
+                <p class="price">$5.00</p>
+                <button onclick="selectProduct('Bamboo Toothbrush')">Buy Now</button>
+            </div>
+
+            <div class="product-card">
+                <h3>Stainless Steel Bottle</h3>
+                <p>Double-walled insulation, keeps drinks cold for 24h.</p>
+                <p class="price">$25.00</p>
+                <button onclick="selectProduct('Stainless Steel Bottle')">Buy Now</button>
+            </div>
+        </section>
+
+        <section class="order-section" id="order">
+            <h2>Place Your Order</h2>
+            <form id="orderForm" action="https://formspree.io/f/YOUR_ENDPOINT_HERE" method="POST">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="customer_name" required placeholder="John Doe">
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="customer_email" required placeholder="john@example.com">
+
+                <label for="product">Select Product</label>
+                <select id="product" name="product_name" required>
+                    <option value="">-- Choose a product --</option>
+                    <option value="Bamboo Toothbrush">Bamboo Toothbrush - $5.00</option>
+                    <option value="Stainless Steel Bottle">Stainless Steel Bottle - $25.00</option>
+                </select>
+
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+
+                <label for="message">Message/Special Instructions</label>
+                <textarea id="message" name="message" rows="4" placeholder="Any specific requests?"></textarea>
+
+                <button type="submit">Send Order Details</button>
+            </form>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 EcoGear Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple script to auto-select the product when "Buy Now" is clicked
+        function selectProduct(productName) {
+            document.getElementById('product').value = productName;
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
