@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie store</title>
     <style>
-        /* CSS Variables - Santa Red Palette */
         :root {
             --santa-red: #b30000; 
             --light-bg: #fdf2f2;
         }
+
+        /* Smooth scrolling for the navigation buttons */
+        html { scroll-behavior: smooth; }
 
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -19,7 +21,7 @@
             background-color: var(--light-bg); 
         }
 
-        /* HEADER - Pushed to the Top Left */
+        /* HEADER */
         header { 
             background: #fff; 
             padding: 1.5rem 5%; 
@@ -34,12 +36,7 @@
             gap: 12px;
         }
 
-        /* Cookie Logo scales with the text height */
-        .cookie-logo {
-            height: 2.5rem; 
-            width: auto;
-            fill: var(--santa-red); 
-        }
+        .cookie-logo { height: 2.5rem; width: auto; fill: var(--santa-red); }
 
         header h1 {
             font-family: 'Georgia', serif;
@@ -47,43 +44,71 @@
             color: var(--santa-red);
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: -1px;
             font-weight: 900;
-            line-height: 1;
         }
 
-        header p {
-            margin: 5px 0 0 0;
-            font-style: italic;
-            color: #666;
-            text-align: left; 
+        /* CATEGORY NAVIGATION */
+        .category-nav {
+            background: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            background: #fff;
+            border: 2px solid var(--santa-red);
+            color: var(--santa-red);
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--santa-red);
+            color: #fff;
         }
 
         .container { width: 90%; max-width: 1100px; margin: 2rem auto; }
 
+        /* TITLES */
+        .section-title {
+            color: var(--santa-red);
+            border-bottom: 3px solid var(--santa-red);
+            display: inline-block;
+            margin: 3rem 0 1.5rem 0;
+            padding-right: 50px;
+            font-family: 'Georgia', serif;
+        }
+
         /* PRODUCT CARDS */
-        .product-section { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+        .product-section { display: flex; gap: 20px; justify-content: flex-start; flex-wrap: wrap; }
         
         .product-card { 
             background: #fff; 
             border: 2px solid #eee;
             border-radius: 12px; 
-            padding: 1.5rem; 
-            width: 250px; 
+            padding: 1rem; 
+            width: 190px; 
             text-align: center; 
             transition: all 0.3s ease;
         }
 
         .product-card:hover { 
             border-color: var(--santa-red);
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(179, 0, 0, 0.15);
+            transform: translateY(-5px);
         }
 
-        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
+        .product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; }
 
-        .desc { font-size: 0.95rem; color: #555; font-style: italic; margin-bottom: 0; }
-        .price { font-weight: bold; color: var(--santa-red); font-size: 1.5rem; margin: 10px 0 15px 0; }
+        .desc { font-size: 0.85rem; color: #666; margin: 5px 0; }
+        .price { font-weight: bold; color: var(--santa-red); font-size: 1.2rem; margin: 5px 0; }
 
         /* CART SECTION */
         .cart-section { 
@@ -91,27 +116,25 @@
             padding: 2rem; 
             border-radius: 12px; 
             border: 3px solid var(--santa-red); 
-            margin-bottom: 3rem; 
+            margin: 4rem 0; 
         }
 
-        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 500; }
+        .cart-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
         .cart-total { text-align: right; font-size: 1.8rem; font-weight: bold; color: var(--santa-red); margin-top: 15px; }
 
-        /* FORM STYLE */
+        /* FORM */
         .order-section { background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         form { display: flex; flex-direction: column; }
         label { margin-top: 15px; font-weight: bold; color: var(--santa-red); }
         input, textarea { padding: 12px; margin-top: 8px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem; }
-        input:focus, textarea:focus { border-color: var(--santa-red); outline: none; }
 
         /* BUTTONS */
-        .btn { padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .add-btn { background: var(--santa-red); color: white; width: 100%; font-size: 1rem; }
-        .add-btn:hover { background: #800000; transform: scale(1.02); }
+        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        .add-btn { background: var(--santa-red); color: white; width: 100%; font-size: 0.9rem; }
+        .add-btn:hover { background: #800000; }
         .submit-btn { background: #333; color: white; margin-top: 25px; font-size: 1.2rem; }
-        .submit-btn:hover { background: #000; letter-spacing: 1px; }
 
-        footer { text-align: center; padding: 3rem; color: #999; font-size: 0.9rem; }
+        footer { text-align: center; padding: 3rem; color: #999; }
     </style>
 </head>
 <body>
@@ -123,83 +146,157 @@
         </svg>
         <h1>Cookie store</h1>
     </div>
-    <p>Freshly Baked Gourmet Treats</p>
 </header>
+
+<nav class="category-nav">
+    <a href="#cookies-section" class="nav-btn">Handmade Cookies</a>
+    <a href="#cakes-section" class="nav-btn">Cakes</a>
+    <a href="#eggrolls-section" class="nav-btn">Eggrolls</a>
+</nav>
 
 <div class="container">
     
-    <section class="product-section">
-        
+    <h2 id="cookies-section" class="section-title">Handmade Cookies</h2>
+    <div class="product-section">
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" alt="Chocolate Chip Cookies">
-            <h3>Chocolate Chip Cookies</h3>
-            <p class="desc">Comes in a set of 10</p>
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400" alt="Choc Chip">
+            <h4>Choc Chip</h4>
+            <p class="desc">Set of 10</p>
             <p class="price">NT$ 80</p>
-            <button class="btn add-btn" onclick="addToCart('Chocolate Chip Cookies', 80)">Add to Cart</button>
+            <button class="btn add-btn" onclick="addToCart('Choc Chip Cookie', 80)">Add to Cart</button>
         </div>
-
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1618923850106-920eb906b3cc?w=800&q=80" alt="Original Cookies">
-            <h3>Original Cookies</h3>
-            <p class="desc">Comes in a set of 10</p>
+            <img src="https://images.unsplash.com/photo-1618923850106-920eb906b3cc?w=400" alt="Original">
+            <h4>Original</h4>
+            <p class="desc">Set of 10</p>
             <p class="price">NT$ 50</p>
-            <button class="btn add-btn" onclick="addToCart('Original Cookies', 50)">Add to Cart</button>
+            <button class="btn add-btn" onclick="addToCart('Original Cookie', 50)">Add to Cart</button>
         </div>
-
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80" alt="Banana Flavor Cookies">
-            <h3>Banana Flavor Cookies</h3>
-            <p class="desc">Comes in a set of 10</p>
+            <img src="https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=400" alt="Banana">
+            <h4>Banana</h4>
+            <p class="desc">Set of 10</p>
             <p class="price">NT$ 60</p>
-            <button class="btn add-btn" onclick="addToCart('Banana Flavor Cookies', 60)">Add to Cart</button>
+            <button class="btn add-btn" onclick="addToCart('Banana Cookie', 60)">Add to Cart</button>
         </div>
-
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1621236378699-8597faa6a71e?w=800&q=80" alt="Strawberry Flavor Cookies">
-            <h3>Strawberry Flavor Cookies</h3>
-            <p class="desc">Comes in a set of 10</p>
+            <img src="https://images.unsplash.com/photo-1621236378699-8597faa6a71e?w=400" alt="Strawberry">
+            <h4>Strawberry</h4>
+            <p class="desc">Set of 10</p>
             <p class="price">NT$ 70</p>
-            <button class="btn add-btn" onclick="addToCart('Strawberry Flavor Cookies', 70)">Add to Cart</button>
+            <button class="btn add-btn" onclick="addToCart('Strawberry Cookie', 70)">Add to Cart</button>
         </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400" alt="Double Dark">
+            <h4>Double Dark</h4>
+            <p class="desc">Set of 10</p>
+            <p class="price">NT$ 80</p>
+            <button class="btn add-btn" onclick="addToCart('Double Dark Cookie', 80)">Add to Cart</button>
+        </div>
+    </div>
 
-    </section>
+    <h2 id="cakes-section" class="section-title">Cakes</h2>
+    <div class="product-section">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" alt="Choc Cake">
+            <h4>Chocolate Cake</h4>
+            <p class="desc">Single Slice</p>
+            <p class="price">NT$ 80</p>
+            <button class="btn add-btn" onclick="addToCart('Chocolate Cake', 80)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400" alt="Matcha Cake">
+            <h4>Matcha Cake</h4>
+            <p class="desc">Single Slice</p>
+            <p class="price">NT$ 75</p>
+            <button class="btn add-btn" onclick="addToCart('Matcha Cake', 75)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400" alt="Vanilla Cake">
+            <h4>Vanilla Cream</h4>
+            <p class="desc">Single Slice</p>
+            <p class="price">NT$ 65</p>
+            <button class="btn add-btn" onclick="addToCart('Vanilla Cream Cake', 65)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400" alt="Berry Cake">
+            <h4>Strawberry Short</h4>
+            <p class="desc">Single Slice</p>
+            <p class="price">NT$ 80</p>
+            <button class="btn add-btn" onclick="addToCart('Strawberry Shortcake', 80)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1622891326737-56e2c75fdee7?w=400" alt="Coffee Cake">
+            <h4>Coffee Tiramisu</h4>
+            <p class="desc">Single Slice</p>
+            <p class="price">NT$ 70</p>
+            <button class="btn add-btn" onclick="addToCart('Tiramisu Slice', 70)">Add to Cart</button>
+        </div>
+    </div>
+
+    <h2 id="eggrolls-section" class="section-title">Eggrolls</h2>
+    <div class="product-section">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1626012652615-56839352932c?w=400" alt="Original Egg">
+            <h4>Original Eggroll</h4>
+            <p class="desc">Set of 15</p>
+            <p class="price">NT$ 50</p>
+            <button class="btn add-btn" onclick="addToCart('Original Eggroll', 50)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400" alt="Sesame Egg">
+            <h4>Sesame Eggroll</h4>
+            <p class="desc">Set of 15</p>
+            <p class="price">NT$ 60</p>
+            <button class="btn add-btn" onclick="addToCart('Sesame Eggroll', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1599785209796-786432b228bc?w=400" alt="Seaweed Egg">
+            <h4>Seaweed Eggroll</h4>
+            <p class="desc">Set of 15</p>
+            <p class="price">NT$ 65</p>
+            <button class="btn add-btn" onclick="addToCart('Seaweed Eggroll', 65)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1590080873976-b3335079f972?w=400" alt="Cocoa Egg">
+            <h4>Cocoa Eggroll</h4>
+            <p class="desc">Set of 15</p>
+            <p class="price">NT$ 70</p>
+            <button class="btn add-btn" onclick="addToCart('Cocoa Eggroll', 70)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400" alt="Honey Egg">
+            <h4>Honey Eggroll</h4>
+            <p class="desc">Set of 15</p>
+            <p class="price">NT$ 80</p>
+            <button class="btn add-btn" onclick="addToCart('Honey Eggroll', 80)">Add to Cart</button>
+        </div>
+    </div>
 
     <section class="cart-section" id="cart">
-        <h2 style="color: var(--santa-red);">Your Selection</h2>
-        <div id="cart-items">
-            <p>No cookies selected yet.</p>
-        </div>
+        <h2 style="color: var(--santa-red);">Your Shopping Bag</h2>
+        <div id="cart-items"><p>Select something tasty!</p></div>
         <div class="cart-total">Total: NT$ <span id="total-price">0</span></div>
     </section>
 
     <section class="order-section">
-        <h2>Customer Information</h2>
-        
+        <h2>Place Order</h2>
         <form action="https://formsubmit.co/your@email.com" method="POST">
-            
             <input type="hidden" name="_next" value="https://your-site.com">
-            <input type="hidden" name="_subject" value="New Cookie Order!">
             <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" id="cart-data" name="Order_List">
 
-            <label for="name">Full Name</label>
-            <input type="text" name="name" placeholder="John Doe" required>
+            <label>Name</label>
+            <input type="text" name="name" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
+            <label>Message / Notes</label>
+            <textarea id="visual-summary" name="message" rows="5" readonly></textarea>
 
-            <label for="email">Email Address</label>
-            <input type="email" name="email" placeholder="john@example.com" required>
-
-            <input type="hidden" id="cart-data" name="Full_Order_List">
-            
-            <label for="summary">Order List</label>
-            <textarea id="visual-summary" name="Message" rows="5" readonly placeholder="Items will appear here..."></textarea>
-
-            <button type="submit" class="btn submit-btn">Confirm Purchase</button>
+            <button type="submit" class="btn submit-btn">Send My Order</button>
         </form>
     </section>
 </div>
-
-<footer>
-    <p>&copy; 2026 Cookie Store | Baking Joy Since Today</p>
-</footer>
 
 <script>
     let cart = [];
@@ -222,24 +319,17 @@
 
         cart.forEach((item) => {
             total += item.price;
-            // Changed formatting to NT$ without cents
-            textSummary += item.name + " - NT$" + item.price.toLocaleString() + "\n";
-
+            textSummary += item.name + " - NT$" + item.price + "\n";
             const div = document.createElement('div');
             div.className = 'cart-item';
-            div.innerHTML = `<span>${item.name}</span> <span>NT$${item.price.toLocaleString()}</span>`;
+            div.innerHTML = `<span>${item.name}</span> <span>NT$${item.price}</span>`;
             cartDiv.appendChild(div);
         });
 
-        // Update total without decimals
         totalDisplay.innerText = total.toLocaleString();
         const finalString = textSummary + "\nTOTAL: NT$" + total.toLocaleString();
-        
         hiddenCartInput.value = finalString;
         summaryTextarea.value = finalString;
-
-        // Smooth scroll down to the cart
-        document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
