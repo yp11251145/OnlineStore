@@ -45,20 +45,40 @@
             transition: transform 0.3s ease;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
         .product-card img {
-            max-width: 100%;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
             border-radius: 4px;
         }
 
         .price {
             font-weight: bold;
-            color: #27ae60;
+            color: #c0392b; /* A slightly "meatier" red color */
             font-size: 1.2rem;
+        }
+
+        /* NEW: Cart Styles */
+        .cart-section {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px dashed #333;
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 15px;
         }
 
         /* Order Form */
@@ -71,26 +91,9 @@
             border: 1px solid #ddd;
         }
 
-        .order-section h2 {
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input, select, textarea {
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+        form { display: flex; flex-direction: column; }
+        label { margin-top: 10px; font-weight: bold; }
+        input, select, textarea { padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
 
         button {
             margin-top: 20px;
@@ -100,19 +103,13 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 1rem;
         }
 
-        button:hover {
-            background: #555;
-        }
+        button:hover { background: #555; }
+        .add-btn { background: #27ae60; width: 100%; }
+        .add-btn:hover { background: #219150; }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
+        footer { text-align: center; padding: 2rem; color: #777; }
     </style>
 </head>
 <body>
@@ -126,45 +123,46 @@
         
         <section class="product-section">
             <div class="product-card">
-                <img src="https://www.shutterstock.com/image-photo/cute-baby-piglet-highly-detailed-600nw-2705951625.jpg" alt="Little piggy (3 months old)">
+                <img src="https://www.shutterstock.com/image-photo/cute-baby-piglet-highly-detailed-600nw-2705951625.jpg" alt="Little piggy">
                 <h3>Little piggy (3 months old)</h3>
                 <p>The most tender meat you can find.</p>
                 <p class="price">$25.00</p>
-                <button onclick="selectProduct('Little piggy (3 months old)')">Buy Now</button>
+                <button class="add-btn" onclick="addToCart('Little piggy (3 months old)', 25)">Add to Cart</button>
             </div>
 
             <div class="product-card">
-                <img src="https://transforms.stlzoo.org/production/animals/reticulated-giraffe-01-01.jpg?w=1200&h=1200&auto=compress%2Cformat&fit=crop&dm=1658951271&s=539e4b5c7b1f8c0287834e192ecc61d0" alt="Giraffe">
+                <img src="https://transforms.stlzoo.org/production/animals/reticulated-giraffe-01-01.jpg?w=1200&h=1200&fit=crop" alt="Giraffe">
                 <h3>Giraffe</h3>
                 <p>Mysterious meat. Wonder what's the taste.</p>
                 <p class="price">$9000.00</p>
-                <button onclick="selectProduct('Giraffe')">Buy Now</button>
+                <button class="add-btn" onclick="addToCart('Giraffe', 9000)">Add to Cart</button>
             </div>
         </section>
 
+        <section class="cart-section" id="cart">
+            <h2>Your Selection</h2>
+            <div id="cart-items">
+                <p style="color: #888;">Your cart is empty.</p>
+            </div>
+            <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
+        </section>
+
         <section class="order-section" id="order">
-            <h2>Place Your Order</h2>
+            <h2>Customer Information</h2>
             <form id="orderForm" action="https://formspree.io/f/YOUR_ENDPOINT_HERE" method="POST">
+                
                 <label for="name">Your Name</label>
-                <input type="text" id="name" name="customer_name" required placeholder="John Doe">
+                <input type="text" name="customer_name" required placeholder="John Doe">
 
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="customer_email" required placeholder="john@example.com">
+                <input type="email" name="customer_email" required placeholder="john@example.com">
 
-                <label for="product">Select Product</label>
-                <select id="product" name="product_name" required>
-                    <option value="">-- Choose a product --</option>
-                    <option value="Little piggy (3 months old)">Little piggy (3 months old) - $25.00</option>
-                    <option value="Giraffe">Giraffe - $9000.00</option>
-                </select>
-
-                <label for="quantity">Quantity</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                <input type="hidden" id="cart-data-input" name="full_order_list">
 
                 <label for="message">Message/Special Instructions</label>
-                <textarea id="message" name="message" rows="4" placeholder="Any specific requests?"></textarea>
+                <textarea id="message" name="message" rows="4" placeholder="How would you like it prepared?"></textarea>
 
-                <button type="submit">Send Order Details</button>
+                <button type="submit">Finalize Meat Order</button>
             </form>
         </section>
 
@@ -175,12 +173,48 @@
     </footer>
 
     <script>
-        // Simple script to auto-select the product when "Buy Now" is clicked
-        function selectProduct(productName) {
-            document.getElementById('product').value = productName;
-            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        // Array to store the items
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            // 1. Add item to the array
+            cart.push({ name: name, price: price });
+            
+            // 2. Refresh the display
+            updateUI();
+        }
+
+        function updateUI() {
+            const cartContainer = document.getElementById('cart-items');
+            const totalDisplay = document.getElementById('total-price');
+            const hiddenInput = document.getElementById('cart-data-input');
+            
+            // Clear current display
+            cartContainer.innerHTML = '';
+            total = 0;
+            let orderSummary = "";
+
+            // Loop through the cart and build the list
+            cart.forEach((item) => {
+                total += item.price;
+                orderSummary += item.name + " ($" + item.price + ")\n";
+
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `<span>${item.name}</span> <span>$${item.price}</span>`;
+                cartContainer.appendChild(div);
+            });
+
+            // Update Total and the hidden input for Formspree
+            totalDisplay.innerText = total.toLocaleString(); // Format with commas
+            hiddenInput.value = orderSummary + "\nGRAND TOTAL: $" + total;
+
+            // Scroll to cart so user knows it was added
+            document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 
 </body>
+</html>
 </html>
