@@ -3,218 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Animal Store | The finest animal supplier</title>
+    <title>Online Animal Store | Premium Meat</title>
     <style>
-        /* CSS - The "Look" of your store */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+        :root {
+            --santa-red: #b30000; 
+            --light-bg: #fdf2f2;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            color: #333; 
+            background-color: var(--light-bg); 
+        }
+
+        /* HEADER - Pushed to the Top Left */
+        header { 
+            background: #fff; 
+            padding: 1.5rem 5%; /* Reduced padding for a sleeker look */
+            border-bottom: 5px solid var(--santa-red);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Aligns to the left */
+            gap: 12px;
+        }
+
+        /* Logo scales with the text height */
+        .barn-logo {
+            height: 2.5rem; /* Matches the font size height */
+            width: auto;
+            fill: var(--santa-red); 
+        }
+
+        header h1 {
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem; /* Slightly smaller for top-left placement */
+            color: var(--santa-red);
             margin: 0;
-            color: #333;
-            background-color: #f9f9f9;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            font-weight: 900;
+            line-height: 1;
         }
 
-        header {
-            background: #fff;
-            padding: 1rem 10%;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
+        header p {
+            margin: 5px 0 0 0;
+            font-style: italic;
+            color: #666;
+            text-align: left; /* Ensures slogan stays left too */
         }
 
-        .container {
-            width: 80%;
-            margin: 2rem auto;
+        .container { width: 90%; max-width: 1100px; margin: 2rem auto; }
+
+        /* PRODUCT CARDS */
+        .product-section { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+        
+        .product-card { 
+            background: #fff; 
+            border: 2px solid #eee;
+            border-radius: 12px; 
+            padding: 1.5rem; 
+            width: 300px; 
+            text-align: center; 
+            transition: all 0.3s ease;
         }
 
-        /* Product Grid */
-        .product-section {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
+        .product-card:hover { 
+            border-color: var(--santa-red);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(179, 0, 0, 0.15);
         }
 
-        .product-card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 1.5rem;
-            width: 280px;
-            text-align: center;
-            transition: transform 0.3s ease;
+        .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+
+        .price { font-weight: bold; color: var(--santa-red); font-size: 1.5rem; margin: 15px 0; }
+
+        /* CART SECTION */
+        .cart-section { 
+            background: #fff; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            border: 3px solid var(--santa-red); 
+            margin-bottom: 3rem; 
         }
 
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 500; }
+        .cart-total { text-align: right; font-size: 1.8rem; font-weight: bold; color: var(--santa-red); margin-top: 15px; }
 
-        .price {
-            font-weight: bold;
-            color: #c0392b; /* A slightly "meatier" red color */
-            font-size: 1.2rem;
-        }
-
-        /* NEW: Cart Styles */
-        .cart-section {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px dashed #333;
-            margin-bottom: 2rem;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-total {
-            text-align: right;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        /* Order Form */
-        .order-section {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
-        }
-
+        /* FORM STYLE */
+        .order-section { background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         form { display: flex; flex-direction: column; }
-        label { margin-top: 10px; font-weight: bold; }
-        input, select, textarea { padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        label { margin-top: 15px; font-weight: bold; color: var(--santa-red); }
+        input, textarea { padding: 12px; margin-top: 8px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem; }
 
-        button {
-            margin-top: 20px;
-            padding: 12px;
-            background: #333;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        /* BUTTONS */
+        .btn { padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        .add-btn { background: var(--santa-red); color: white; width: 100%; font-size: 1rem; }
+        .add-btn:hover { background: #800000; }
+        .submit-btn { background: #333; color: white; margin-top: 25px; font-size: 1.2rem; }
+        .submit-btn:hover { background: #000; }
 
-        button:hover { background: #555; }
-        .add-btn { background: #27ae60; width: 100%; }
-        .add-btn:hover { background: #219150; }
-
-        footer { text-align: center; padding: 2rem; color: #777; }
+        footer { text-align: center; padding: 3rem; color: #999; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Online Animal Store</h1>
-        <p>Fresh Meat Supplier.</p>
-    </header>
-
-    <div class="container">
-        
-        <section class="product-section">
-            <div class="product-card">
-                <img src="https://www.shutterstock.com/image-photo/cute-baby-piglet-highly-detailed-600nw-2705951625.jpg" alt="Little piggy">
-                <h3>Little piggy (3 months old)</h3>
-                <p>The most tender meat you can find.</p>
-                <p class="price">$25.00</p>
-                <button class="add-btn" onclick="addToCart('Little piggy (3 months old)', 25)">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <img src="https://i.pinimg.com/originals/ae/8d/b8/ae8db82c2e652a15feb70c11b18d4ff4.jpg" alt="Giraffe">
-                <h3>Giraffe</h3>
-                <p>Mysterious meat. Wonder what's the taste?</p>
-                <p class="price">$9000.00</p>
-                <button class="add-btn" onclick="addToCart('Giraffe', 9000)">Add to Cart</button>
-            </div>
-        </section>
-
-        <section class="cart-section" id="cart">
-            <h2>Your Selection</h2>
-            <div id="cart-items">
-                <p style="color: #888;">Your cart is empty.</p>
-            </div>
-            <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
-        </section>
-
-        <section class="order-section" id="order">
-            <h2>Customer Information</h2>
-            <form id="orderForm" action="https://formspree.io/f/YOUR_ENDPOINT_HERE" method="POST">
-                
-                <label for="name">Your Name</label>
-                <input type="text" name="customer_name" required placeholder="John Doe">
-
-                <label for="email">Email Address</label>
-                <input type="email" name="customer_email" required placeholder="john@example.com">
-
-                <input type="hidden" id="cart-data-input" name="full_order_list">
-
-                <label for="message">Message/Special Instructions</label>
-                <textarea id="message" name="message" rows="4" placeholder="How would you like it prepared?"></textarea>
-
-                <button type="submit">Finalize Meat Order</button>
-            </form>
-        </section>
-
+<header>
+    <div class="logo-container">
+        <svg class="barn-logo" viewBox="0 0 24 24">
+            <path d="M12 3L4 9V21H9V15H15V21H20V9L12 3M12 12C10.9 12 10 11.1 10 10S10.9 8 12 8 14 8.9 14 10 13.1 12 12 12Z" />
+        </svg>
+        <h1>Animal Store</h1>
     </div>
+    <p>Fresh Meat & Quality Livestock Supplier</p>
+</header>
 
-    <footer>
-        <p>&copy; 2026 Online Animal Store. All rights reserved.</p>
-    </footer>
+<div class="container">
+    
+    <section class="product-section">
+        <div class="product-card">
+            <img src="https://www.shutterstock.com/image-photo/cute-baby-piglet-highly-detailed-600nw-2705951625.jpg" alt="Piggy">
+            <h3>Little piggy (3 months)</h3>
+            <p class="price">$25.00</p>
+            <button class="btn add-btn" onclick="addToCart('Little piggy', 25)">Add to Cart</button>
+        </div>
 
-    <script>
-        // Array to store the items
-        let cart = [];
-        let total = 0;
+        <div class="product-card">
+            <img src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/4659/image/s768x1300/AdobeStock_331202050_538219_reduced.jpg" alt="Giraffe">
+            <h3>Reticulated Giraffe</h3>
+            <p class="price">$9,000.00</p>
+            <button class="btn add-btn" onclick="addToCart('Giraffe', 9000)">Add to Cart</button>
+        </div>
+    </section>
 
-        function addToCart(name, price) {
-            // 1. Add item to the array
-            cart.push({ name: name, price: price });
+    <section class="cart-section" id="cart">
+        <h2 style="color: var(--santa-red);">Your Selection</h2>
+        <div id="cart-items">
+            <p>No animals selected yet.</p>
+        </div>
+        <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
+    </section>
+
+    <section class="order-section">
+        <h2>Customer Information</h2>
+        <form action="https://formsubmit.co/your@email.com" method="POST">
+            <input type="hidden" name="_next" value="https://your-site.com">
+            <input type="hidden" name="_subject" value="New Meat Order!">
+            <input type="hidden" name="_captcha" value="false">
+
+            <label for="name">Full Name</label>
+            <input type="text" name="name" placeholder="John Doe" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" name="email" placeholder="john@example.com" required>
+
+            <input type="hidden" id="cart-data" name="Order_Summary">
             
-            // 2. Refresh the display
-            updateUI();
-        }
+            <label for="summary">Order List</label>
+            <textarea id="visual-summary" name="Message" rows="5" readonly placeholder="Items will appear here..."></textarea>
 
-        function updateUI() {
-            const cartContainer = document.getElementById('cart-items');
-            const totalDisplay = document.getElementById('total-price');
-            const hiddenInput = document.getElementById('cart-data-input');
-            
-            // Clear current display
-            cartContainer.innerHTML = '';
-            total = 0;
-            let orderSummary = "";
+            <button type="submit" class="btn submit-btn">Confirm Purchase</button>
+        </form>
+    </section>
+</div>
 
-            // Loop through the cart and build the list
-            cart.forEach((item) => {
-                total += item.price;
-                orderSummary += item.name + " ($" + item.price + ")\n";
+<footer>
+    <p>&copy; 2026 Online Animal Store | Finest Quality Since 1920</p>
+</footer>
 
-                const div = document.createElement('div');
-                div.className = 'cart-item';
-                div.innerHTML = `<span>${item.name}</span> <span>$${item.price}</span>`;
-                cartContainer.appendChild(div);
-            });
+<script>
+    let cart = [];
+    let total = 0;
 
-            // Update Total and the hidden input for Formspree
-            totalDisplay.innerText = total.toLocaleString(); // Format with commas
-            hiddenInput.value = orderSummary + "\nGRAND TOTAL: $" + total;
+    function addToCart(name, price) {
+        cart.push({ name: name, price: price });
+        updateUI();
+    }
 
-            // Scroll to cart so user knows it was added
-            document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    function updateUI() {
+        const cartDiv = document.getElementById('cart-items');
+        const totalDisplay = document.getElementById('total-price');
+        const hiddenCartInput = document.getElementById('cart-data');
+        const summaryTextarea = document.getElementById('visual-summary');
+
+        cartDiv.innerHTML = '';
+        total = 0;
+        let textSummary = "";
+
+        cart.forEach((item) => {
+            total += item.price;
+            textSummary += item.name + " - $" + item.price.toLocaleString() + "\n";
+
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `<span>${item.name}</span> <span>$${item.price.toLocaleString()}</span>`;
+            cartDiv.appendChild(div);
+        });
+
+        totalDisplay.innerText = total.toLocaleString();
+        const finalString = textSummary + "\nTOTAL: $" + total.toLocaleString();
+        hiddenCartInput.value = finalString;
+        summaryTextarea.value = finalString;
+
+        document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
 
 </body>
-</html>
 </html>
