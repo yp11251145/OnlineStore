@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Animal Store | Premium Meat</title>
+    <title>Cookie store</title>
     <style>
+        /* CSS Variables - Santa Red Palette */
         :root {
             --santa-red: #b30000; 
             --light-bg: #fdf2f2;
@@ -21,7 +22,7 @@
         /* HEADER - Pushed to the Top Left */
         header { 
             background: #fff; 
-            padding: 1.5rem 5%; /* Reduced padding for a sleeker look */
+            padding: 1.5rem 5%; 
             border-bottom: 5px solid var(--santa-red);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
@@ -29,20 +30,20 @@
         .logo-container {
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Aligns to the left */
+            justify-content: flex-start; 
             gap: 12px;
         }
 
-        /* Logo scales with the text height */
-        .barn-logo {
-            height: 2.5rem; /* Matches the font size height */
+        /* Cookie Logo scales with the text height */
+        .cookie-logo {
+            height: 2.5rem; 
             width: auto;
             fill: var(--santa-red); 
         }
 
         header h1 {
             font-family: 'Georgia', serif;
-            font-size: 2.5rem; /* Slightly smaller for top-left placement */
+            font-size: 2.5rem; 
             color: var(--santa-red);
             margin: 0;
             text-transform: uppercase;
@@ -55,7 +56,7 @@
             margin: 5px 0 0 0;
             font-style: italic;
             color: #666;
-            text-align: left; /* Ensures slogan stays left too */
+            text-align: left; 
         }
 
         .container { width: 90%; max-width: 1100px; margin: 2rem auto; }
@@ -68,7 +69,7 @@
             border: 2px solid #eee;
             border-radius: 12px; 
             padding: 1.5rem; 
-            width: 300px; 
+            width: 250px; 
             text-align: center; 
             transition: all 0.3s ease;
         }
@@ -79,9 +80,10 @@
             box-shadow: 0 15px 30px rgba(179, 0, 0, 0.15);
         }
 
-        .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
 
-        .price { font-weight: bold; color: var(--santa-red); font-size: 1.5rem; margin: 15px 0; }
+        .desc { font-size: 0.95rem; color: #555; font-style: italic; margin-bottom: 0; }
+        .price { font-weight: bold; color: var(--santa-red); font-size: 1.5rem; margin: 10px 0 15px 0; }
 
         /* CART SECTION */
         .cart-section { 
@@ -100,13 +102,14 @@
         form { display: flex; flex-direction: column; }
         label { margin-top: 15px; font-weight: bold; color: var(--santa-red); }
         input, textarea { padding: 12px; margin-top: 8px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem; }
+        input:focus, textarea:focus { border-color: var(--santa-red); outline: none; }
 
         /* BUTTONS */
         .btn { padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
         .add-btn { background: var(--santa-red); color: white; width: 100%; font-size: 1rem; }
-        .add-btn:hover { background: #800000; }
+        .add-btn:hover { background: #800000; transform: scale(1.02); }
         .submit-btn { background: #333; color: white; margin-top: 25px; font-size: 1.2rem; }
-        .submit-btn:hover { background: #000; }
+        .submit-btn:hover { background: #000; letter-spacing: 1px; }
 
         footer { text-align: center; padding: 3rem; color: #999; font-size: 0.9rem; }
     </style>
@@ -115,45 +118,67 @@
 
 <header>
     <div class="logo-container">
-        <svg class="barn-logo" viewBox="0 0 24 24">
-            <path d="M12 3L4 9V21H9V15H15V21H20V9L12 3M12 12C10.9 12 10 11.1 10 10S10.9 8 12 8 14 8.9 14 10 13.1 12 12 12Z" />
+        <svg class="cookie-logo" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 5.5a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 9 7.5zm-2 6a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 7 13.5zm6-2.5a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 13 11.0zm3.5-2.5a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16.5 8.5zm-1 6.5a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 15.5 15z"/>
         </svg>
-        <h1>Animal Store</h1>
+        <h1>Cookie store</h1>
     </div>
-    <p>Fresh Meat & Quality Livestock Supplier</p>
+    <p>Freshly Baked Gourmet Treats</p>
 </header>
 
 <div class="container">
     
     <section class="product-section">
+        
         <div class="product-card">
-            <img src="https://www.shutterstock.com/image-photo/cute-baby-piglet-highly-detailed-600nw-2705951625.jpg" alt="Piggy">
-            <h3>Little piggy (3 months)</h3>
-            <p class="price">$25.00</p>
-            <button class="btn add-btn" onclick="addToCart('Little piggy', 25)">Add to Cart</button>
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" alt="Chocolate Chip Cookies">
+            <h3>Chocolate Chip Cookies</h3>
+            <p class="desc">Comes in a set of 10</p>
+            <p class="price">NT$ 80</p>
+            <button class="btn add-btn" onclick="addToCart('Chocolate Chip Cookies', 80)">Add to Cart</button>
         </div>
 
         <div class="product-card">
-            <img src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/4659/image/s768x1300/AdobeStock_331202050_538219_reduced.jpg" alt="Giraffe">
-            <h3>Reticulated Giraffe</h3>
-            <p class="price">$9,000.00</p>
-            <button class="btn add-btn" onclick="addToCart('Giraffe', 9000)">Add to Cart</button>
+            <img src="https://images.unsplash.com/photo-1618923850106-920eb906b3cc?w=800&q=80" alt="Original Cookies">
+            <h3>Original Cookies</h3>
+            <p class="desc">Comes in a set of 10</p>
+            <p class="price">NT$ 50</p>
+            <button class="btn add-btn" onclick="addToCart('Original Cookies', 50)">Add to Cart</button>
         </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80" alt="Banana Flavor Cookies">
+            <h3>Banana Flavor Cookies</h3>
+            <p class="desc">Comes in a set of 10</p>
+            <p class="price">NT$ 60</p>
+            <button class="btn add-btn" onclick="addToCart('Banana Flavor Cookies', 60)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1621236378699-8597faa6a71e?w=800&q=80" alt="Strawberry Flavor Cookies">
+            <h3>Strawberry Flavor Cookies</h3>
+            <p class="desc">Comes in a set of 10</p>
+            <p class="price">NT$ 70</p>
+            <button class="btn add-btn" onclick="addToCart('Strawberry Flavor Cookies', 70)">Add to Cart</button>
+        </div>
+
     </section>
 
     <section class="cart-section" id="cart">
         <h2 style="color: var(--santa-red);">Your Selection</h2>
         <div id="cart-items">
-            <p>No animals selected yet.</p>
+            <p>No cookies selected yet.</p>
         </div>
-        <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
+        <div class="cart-total">Total: NT$ <span id="total-price">0</span></div>
     </section>
 
     <section class="order-section">
         <h2>Customer Information</h2>
+        
         <form action="https://formsubmit.co/your@email.com" method="POST">
+            
             <input type="hidden" name="_next" value="https://your-site.com">
-            <input type="hidden" name="_subject" value="New Meat Order!">
+            <input type="hidden" name="_subject" value="New Cookie Order!">
             <input type="hidden" name="_captcha" value="false">
 
             <label for="name">Full Name</label>
@@ -162,7 +187,7 @@
             <label for="email">Email Address</label>
             <input type="email" name="email" placeholder="john@example.com" required>
 
-            <input type="hidden" id="cart-data" name="Order_Summary">
+            <input type="hidden" id="cart-data" name="Full_Order_List">
             
             <label for="summary">Order List</label>
             <textarea id="visual-summary" name="Message" rows="5" readonly placeholder="Items will appear here..."></textarea>
@@ -173,7 +198,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2026 Online Animal Store | Finest Quality Since 1920</p>
+    <p>&copy; 2026 Cookie Store | Baking Joy Since Today</p>
 </footer>
 
 <script>
@@ -197,19 +222,23 @@
 
         cart.forEach((item) => {
             total += item.price;
-            textSummary += item.name + " - $" + item.price.toLocaleString() + "\n";
+            // Changed formatting to NT$ without cents
+            textSummary += item.name + " - NT$" + item.price.toLocaleString() + "\n";
 
             const div = document.createElement('div');
             div.className = 'cart-item';
-            div.innerHTML = `<span>${item.name}</span> <span>$${item.price.toLocaleString()}</span>`;
+            div.innerHTML = `<span>${item.name}</span> <span>NT$${item.price.toLocaleString()}</span>`;
             cartDiv.appendChild(div);
         });
 
+        // Update total without decimals
         totalDisplay.innerText = total.toLocaleString();
-        const finalString = textSummary + "\nTOTAL: $" + total.toLocaleString();
+        const finalString = textSummary + "\nTOTAL: NT$" + total.toLocaleString();
+        
         hiddenCartInput.value = finalString;
         summaryTextarea.value = finalString;
 
+        // Smooth scroll down to the cart
         document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
     }
 </script>
